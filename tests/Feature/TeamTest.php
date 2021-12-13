@@ -58,6 +58,15 @@ class TeamTest extends TestCase
         $this->assertEquals(3, $team->count());
     }
 
+    public function test_a_team_has_maximum_size_when_adding_multiple_users_at_once()
+    {
+        $team = Team::factory()->create(['size' => 3]);
+        $users = User::factory(5)->create();
+
+        $this->expectException(Exception::class);
+        $team->add($users);
+    }
+
     public function test_team_can_remove_a_member()
     {
         $team = Team::factory()->create();

@@ -52,10 +52,6 @@ class Team extends Model
 
     protected function guardAgainstTooManyMembers($collection): void
     {
-        if ($this->count() >= $this->size) {
-            throw new Exception();
-        }
-
         if (($this->count() + $collection->count()) > $this->size) {
             throw new Exception();
         }
