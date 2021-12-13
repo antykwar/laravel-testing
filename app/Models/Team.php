@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Strategies\User\TeamLeavingStrategy;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -37,14 +38,16 @@ class Team extends Model
         return $this->members()->count();
     }
 
-    public function removeUser(User $user): void
+    public function removeUser(User | Collection $user): void
     {
-        $this->members()->find($user->id)?->delete();
+        (new TeamLeavingStrategy())
+            ->dismissUsers($user);
     }
 
     public function exterminateUsers(): void
     {
-        $this->members()->delete();
+        (new TeamLeavingStrategy())
+            ->dismissUsers($this->members()->get());
     }
 
     protected function guardAgainstTooManyMembers($collection): void
