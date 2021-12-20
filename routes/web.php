@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    Mail::raw('This is my prod message', function($message) {
+        $message->from('one@prod.mail');
+        $message->to('another@prod.mail');
+    });
 })->name('home-page');
 
 Route::get('/clicked', function () {
