@@ -9,8 +9,11 @@ trait MailTracking
 {
     protected array $emails = [];
 
+    /** @before */
     public function setUpMailTracking(): void
     {
+        parent::setUp();
+
         Mail::mailer()
             ->getSwiftMailer()
             ->registerPlugin(

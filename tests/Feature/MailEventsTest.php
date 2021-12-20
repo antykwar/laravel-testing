@@ -11,12 +11,6 @@ class MailEventsTest extends TestCase implements MailTrackingTestCase
 {
     use MailTracking;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->setUpMailTracking();
-    }
-
     public function test_mail_sent_with_counter(): void
     {
         $this->sendMail();
